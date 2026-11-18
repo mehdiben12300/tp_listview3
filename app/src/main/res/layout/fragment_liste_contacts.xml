@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/white">
 
     <!-- Barre d'outils avec bouton d'ajout "+" -->
@@ -76,14 +78,6 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <!-- 4. RecyclerView personnalisée pour la liste des contacts -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvContacts"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="16dp" />
-
         <!-- Vue d'état vide si aucun contact ne correspond à la recherche -->
         <LinearLayout
             android:id="@+id/layoutEmptyState"
@@ -111,6 +105,14 @@
                 android:textColor="@color/text_secondary"
                 android:textSize="15sp" />
         </LinearLayout>
+
+        <!-- 4. RecyclerView personnalisée pour la liste des contacts -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContacts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp" />
 
     </FrameLayout>
 

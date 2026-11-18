@@ -123,7 +123,8 @@ class ListeContactsFragment : Fragment() {
      */
     private fun ouvrirDetailContact(contactId: Long?) {
         val detailFragment = DetailContactFragment.newInstance(contactId)
-        parentFragmentManager.beginTransaction()
+        requireActivity().supportFragmentManager.beginTransaction()
+            .setReorderingAllowed(true)
             .replace(R.id.fragment_container, detailFragment)
             .addToBackStack(null)
             .commit()

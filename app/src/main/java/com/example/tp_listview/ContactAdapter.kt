@@ -28,6 +28,8 @@ class ContactAdapter(
      * pour éviter des appels répétitifs et coûteux lors du défilement.
      */
     class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val root: View = itemView
+        val contentLayout: View? = itemView.findViewById(R.id.layoutContactContent)
         val ivPhoto: ImageView = itemView.findViewById(R.id.ivItemPhoto)
         val tvNomPrenom: TextView = itemView.findViewById(R.id.tvItemNomPrenom)
         val tvTelephone: TextView = itemView.findViewById(R.id.tvItemTelephone)
@@ -36,7 +38,20 @@ class ContactAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_contact, parent, false)
-        return ContactViewHolder(view)
+        val holder = ContactViewHolder(view)
+
+        // Gestion du clic robuste sur l'élément entier et son conteneur
+        val clickListener = View.OnClickListener {
+            val position = holder.bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION && position in contacts.indices) {
+                onContactClick(contacts[position])
+            }
+        }
+
+        holder.root.setOnClickListener(clickListener)
+        holder.contentLayout?.setOnClickListener(clickListener)
+
+        return holder
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
@@ -67,11 +82,6 @@ class ContactAdapter(
             else -> {
                 holder.ivPhoto.setImageResource(R.drawable.ic_default_avatar)
             }
-        }
-
-        // Clic sur l'élément : transmission de l'objet Contact (et non d'un index de position)
-        holder.itemView.setOnClickListener {
-            onContactClick(contact)
         }
     }
 

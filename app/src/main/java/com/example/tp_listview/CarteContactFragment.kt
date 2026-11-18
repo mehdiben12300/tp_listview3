@@ -145,7 +145,7 @@ class CarteContactFragment : Fragment(), OnMapReadyCallback {
     private fun setupToolbar() {
         toolbarCarte.title = getString(R.string.title_carte)
         toolbarCarte.setNavigationOnClickListener {
-            parentFragmentManager.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 

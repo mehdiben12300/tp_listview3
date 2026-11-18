@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         // On n'injecte le fragment initial que lors de la première création de l'activité.
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
+                .setReorderingAllowed(true)
                 .replace(R.id.fragment_container, ListeContactsFragment())
                 .commit()
         }

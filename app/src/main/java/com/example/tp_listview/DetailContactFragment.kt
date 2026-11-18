@@ -143,7 +143,7 @@ class DetailContactFragment : Fragment() {
     private fun setupToolbar() {
         // Retour vers la liste sans enregistrer
         toolbarDetail.setNavigationOnClickListener {
-            parentFragmentManager.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         val deleteItem = toolbarDetail.menu.findItem(R.id.action_delete)
@@ -270,7 +270,8 @@ class DetailContactFragment : Fragment() {
                     latitude = lat,
                     longitude = lon
                 )
-                parentFragmentManager.beginTransaction()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .setReorderingAllowed(true)
                     .replace(R.id.fragment_container, carteFragment)
                     .addToBackStack(null)
                     .commit()
@@ -284,7 +285,7 @@ class DetailContactFragment : Fragment() {
 
         // 7. Bouton Annuler
         btnAnnuler.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
@@ -387,7 +388,7 @@ class DetailContactFragment : Fragment() {
         }
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 
-        parentFragmentManager.popBackStack()
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     private fun confirmerSuppression() {
@@ -398,7 +399,7 @@ class DetailContactFragment : Fragment() {
             .setPositiveButton(R.string.dlg_oui) { _, _ ->
                 viewModel.deleteContact(targetContact.id)
                 Toast.makeText(requireContext(), R.string.msg_contact_supprime, Toast.LENGTH_SHORT).show()
-                parentFragmentManager.popBackStack()
+                requireActivity().supportFragmentManager.popBackStack()
             }
             .setNegativeButton(R.string.dlg_non, null)
             .show()
